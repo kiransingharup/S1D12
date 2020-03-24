@@ -1,11 +1,18 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-
-target_img = ''
-src_img = ''
+from matplotlib import pyplot as plt 
+from pdf2image import convert_from_path
 
 
+#convert pdf to image
+
+target_img = 'meter.png'
+PDFFILE = 'schematic.pdf'
+src_img = 'schematic.jpg'	
+pages = convert_from_path(PDFFILE, 500)
+
+for page in pages:
+    page.save(src_img, 'JPEG')
 
 #templatematching
 #https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html
@@ -48,9 +55,6 @@ for meth in methods:
 #featurematch
 #https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_matcher/py_matcher.html#matcher
 
-import numpy as np
-import cv2
-from matplotlib import pyplot as plt
 
 img1 = cv2.imread(target_img,0)          # queryImage
 img2 = cv2.imread(src_img,0) # trainImage
@@ -76,3 +80,4 @@ for m,n in matches:
 img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good,flags=2)
 
 plt.imshow(img3),plt.show()
+'''
